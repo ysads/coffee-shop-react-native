@@ -7,11 +7,12 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
+import { Product } from "../types";
 
 type RouteParams = {
   Login: undefined;
   ProductList: undefined;
-  ProductDetails: undefined;
+  ProductDetails: { product: Product };
   Weather: undefined;
 };
 
@@ -24,7 +25,10 @@ const Stack = createNativeStackNavigator<RouteParams>();
 
 export default function Router() {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator
+      initialRouteName="ProductList"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ProductList" component={ProductList} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
