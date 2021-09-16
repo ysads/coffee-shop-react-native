@@ -32,3 +32,16 @@ export const Radius = {
   small: 8,
   large: 24,
 };
+
+export const Shadow = {
+  elevation3: {
+    shadowColor: Color.navyBlue,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 6,
+  },
+};
