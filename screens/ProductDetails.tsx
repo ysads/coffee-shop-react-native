@@ -1,5 +1,5 @@
 import React from "react";
-import UIButton from "../components/ui/UIButton";
+import Button from "../components/Button";
 import { View, Text } from "react-native";
 import { ScreenProps } from "../components/Router";
 
@@ -11,9 +11,9 @@ export default function ProductDetails({ navigation, route }: Props) {
   return (
     <View>
       <Text>{product.name}</Text>
-      <UIButton onPress={() => navigation.navigate("Weather")}>
+      <Button onPress={() => navigation.navigate("Weather")}>
         <Text>go to weather</Text>
-      </UIButton>
+      </Button>
     </View>
   );
 }
