@@ -6,11 +6,12 @@ import { useFonts } from "expo-font";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    GaramondBold: require("./assets/fonts/CormorantGaramond-Bold.ttf"),
-    GaramondBoldItalic: require("./assets/fonts/CormorantGaramond-BoldItalic.ttf"),
     SourceSans: require("./assets/fonts/SourceSansPro.ttf"),
     SourceSansItalic: require("./assets/fonts/SourceSansPro-Italic.ttf"),
     SourceSansBold: require("./assets/fonts/SourceSansPro-Bold.ttf"),
+    Merriweather: require("./assets/fonts/Merriweather.ttf"),
+    MerriweatherBold: require("./assets/fonts/Merriweather-Bold.ttf"),
+    MerriweatherBlack: require("./assets/fonts/Merriweather-Black.ttf"),
   });
 
   return !fontsLoaded ? (

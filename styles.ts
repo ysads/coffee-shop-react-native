@@ -9,21 +9,23 @@ export const Color = {
 };
 
 export const Font = {
-  garamond: {
-    bold: "GaramondBold",
-    boldItalic: "GaramondBoldItalic",
-  },
   sourceSans: {
     regular: "SourceSans",
     bold: "SourceSansBold",
     italic: "SourceSansItalic",
+  },
+  merriweather: {
+    regular: "Merriweather",
+    bold: "MerriweatherBold",
+    black: "MerriweatherBlack",
   },
 };
 
 export const FontSize = {
   body: 16,
   title1: 36,
-  title2: 24,
+  title2: 22,
+  title3: 18,
 };
 
 export const Radius = {
