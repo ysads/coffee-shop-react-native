@@ -44,6 +44,6 @@ export const getFakeProduct = () => ({
   id: faker.datatype.uuid(),
   price: faker.datatype.float({ min: 10, max: 200 }),
   name: fakeCoffeeName(),
-  description: faker.lorem.paragraph(),
+  description: faker.lorem.paragraphs(3),
   images: [sample(images)],
 });
