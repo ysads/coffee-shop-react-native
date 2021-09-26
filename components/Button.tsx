@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: Radius.small,
     color: Color.white,
+    paddingTop: 78,
     padding: 8,
     ...Shadow.elevation3,
   },
