@@ -80,7 +80,7 @@ export default function ProductDetails({ navigation, route }: Props) {
           <Button
             variant="pink"
             size="large"
-            onPress={() => navigation.navigate("Weather")}
+            onPress={() => navigation.navigate("WeatherDetails", { product })}
           >
             <Ionicons name="rainy-outline" color={Color.white} size={24} />
             <Text style={styles.buttonText}>Ver tempo</Text>

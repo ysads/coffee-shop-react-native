@@ -1,5 +1,6 @@
 import faker from "faker";
 import { sample } from "../support/collections";
+import { Product } from "../types";
 
 const images = [
   // A Cup of Coffee
@@ -32,18 +33,53 @@ const images = [
   "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5824d9109906229.600f81dabe6cb.png",
 ];
 
-const fakeCoffeeName = () => {
-  const types = ["Arábica", "Conilon", "Robusta"];
-  const buzzwords = ["Microlote", "Orgânico", "Familiar"];
-  const regions = ["Extrema", "Mantiqueira", "Caparaó"];
-
-  return `${sample(types)} ${sample(buzzwords)} – ${sample(regions)}`;
+const fakeLocation = () => {
+  const data = [
+    {
+      region: "Extrema",
+      lat: "-22.845279715908166",
+      lon: "-46.26128202417066",
+    },
+    {
+      region: "Mantiqueira",
+      lat: "-21.712102139908595",
+      lon: "-44.97262516495614",
+    },
+    {
+      region: "Caparaó",
+      lat: "-20.52127663981693",
+      lon: "-41.899352027340505",
+    },
+    {
+      region: "Chapada Diamantina",
+      lat: "-11.383786785426516",
+      lon: "-41.28926770023153",
+    },
+    {
+      region: "Wenceslau Braz",
+      lat: "-23.87294633365956",
+      lon: "-49.79904055892433",
+    },
+  ];
+  return sample(data);
 };
 
-export const getFakeProduct = () => ({
-  id: faker.datatype.uuid(),
-  price: faker.datatype.float({ min: 10, max: 200 }),
-  name: fakeCoffeeName(),
-  description: faker.lorem.paragraphs(3),
-  images: [sample(images)],
-});
+const fakeCoffeeName = (region: string) => {
+  const types = ["Arábica", "Conilon", "Robusta"];
+  const buzzwords = ["Microlote", "Orgânico", "Familiar"];
+
+  return `${sample(types)} ${sample(buzzwords)} - ${region}`;
+};
+
+export const getFakeProduct = (): Product => {
+  const location = fakeLocation();
+
+  return {
+    id: faker.datatype.uuid(),
+    price: faker.datatype.float({ min: 10, max: 200 }),
+    name: fakeCoffeeName(location.region),
+    description: faker.lorem.paragraphs(3),
+    images: [sample(images)],
+    ...location,
+  };
+};

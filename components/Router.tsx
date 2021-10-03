@@ -2,7 +2,7 @@ import React from "react";
 import Login from "../screens/Login";
 import ProductDetails from "../screens/ProductDetails";
 import ProductList from "../screens/ProductList";
-import Weather from "../screens/Weather";
+import WeatherDetails from "../screens/WeatherDetails";
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
@@ -13,7 +13,7 @@ type RouteParams = {
   Login: undefined;
   ProductList: undefined;
   ProductDetails: { product: Product };
-  Weather: undefined;
+  WeatherDetails: { product: Product };
 };
 
 export type ScreenProps<T extends keyof RouteParams> = NativeStackScreenProps<
@@ -32,7 +32,7 @@ export default function Router() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ProductList" component={ProductList} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
-      <Stack.Screen name="Weather" component={Weather} />
+      <Stack.Screen name="WeatherDetails" component={WeatherDetails} />
     </Stack.Navigator>
   );
 }
