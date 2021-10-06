@@ -1,6 +1,7 @@
-import { Product, Weather } from "../types";
+import { GoogleUser, Product, Weather } from "../types";
 import { getFakeProduct } from "./product";
 import { parseWeather } from "./weather";
+import { parseGoogleUser } from "./google";
 
 interface ApiProductParams {
   limit: number;
@@ -26,4 +27,14 @@ export const fetchWeatherData = async ({
   )
     .then((res) => res.json())
     .then((data) => parseWeather(data));
+};
+
+export const fetchGoogleUser = async (
+  token: string | undefined,
+): Promise<GoogleUser> => {
+  return fetch(
+    `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`,
+  )
+    .then((res) => res.json())
+    .then((data) => parseGoogleUser(data));
 };

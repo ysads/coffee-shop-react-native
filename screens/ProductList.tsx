@@ -41,7 +41,7 @@ export default function ProductList({ navigation }: Props) {
         <NavHeader />
         <Text style={styles.title}>Produtos</Text>
         <View style={styles.sheet}>
-          <ProductCarousel
+          {/* <ProductCarousel
             title="Best-sellers"
             products={products.slice(0, 5)}
             size="large"
@@ -58,7 +58,7 @@ export default function ProductList({ navigation }: Props) {
             products={products.slice(10, 15)}
             size="small"
             navigation={navigation}
-          />
+          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>

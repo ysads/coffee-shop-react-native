@@ -26,7 +26,7 @@ const Stack = createNativeStackNavigator<RouteParams>();
 export default function Router() {
   return (
     <Stack.Navigator
-      initialRouteName="ProductList"
+      initialRouteName="Login"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Login" component={Login} />
