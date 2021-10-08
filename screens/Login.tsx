@@ -7,6 +7,8 @@ import { Color, Radius } from "../styles";
 import { ScreenProps } from "../components/Router";
 import { fetchGoogleUser } from "../api";
 import { GoogleUser } from "../types";
+import { signin } from "../actions";
+import { useDispatch } from "react-redux";
 
 type Props = ScreenProps<"Login">;
 
@@ -33,6 +35,7 @@ export default function Login({ navigation }: Props) {
     webClientId:
       "205094974478-kn6gr5ukmk30ck3c92u10uotocpq0ril.apps.googleusercontent.com",
   });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (response?.type === "success") {
@@ -41,7 +44,12 @@ export default function Login({ navigation }: Props) {
         const res: GoogleUser = await fetchGoogleUser(
           authentication?.accessToken,
         );
-        console.log(res);
+        const googleUser = {
+          email: res.email,
+          name: res.name,
+          picture: res.picture,
+        };
+        dispatch(signin(googleUser));
       })();
       navigation.navigate("ProductList");
     }

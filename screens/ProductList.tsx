@@ -7,6 +7,7 @@ import { Product } from "../types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NavHeader from "../components/NavHeader";
 import ProductCarousel from "../components/ProductCarousel";
+import { useSelector } from "react-redux";
 
 type Props = ScreenProps<"ProductList">;
 
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
 
 export default function ProductList({ navigation }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
+  const googleUser = useSelector((state: any) => state.googleUser);
 
   useEffect(() => {
     setProducts(fetchProducts({ limit: 15 }));
@@ -39,6 +41,7 @@ export default function ProductList({ navigation }: Props) {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <NavHeader />
+        <Text>Você logou como {googleUser.name}</Text>
         <Text style={styles.title}>Produtos</Text>
         <View style={styles.sheet}>
           <ProductCarousel

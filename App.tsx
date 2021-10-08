@@ -3,6 +3,11 @@ import AppLoading from "expo-app-loading";
 import Router from "./components/Router";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { createStore } from "redux";
+import combinedReducers from "./reducers";
+import { Provider } from "react-redux";
+
+const store = createStore(combinedReducers);
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,8 +22,10 @@ export default function App() {
   return !fontsLoaded ? (
     <AppLoading />
   ) : (
-    <NavigationContainer>
-      <Router />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    </Provider>
   );
 }
