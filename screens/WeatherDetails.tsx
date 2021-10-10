@@ -1,26 +1,28 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, ScrollView, StyleSheet } from "react-native";
 import { fetchWeatherData } from "../api";
 import { ScreenProps } from "../components/Router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Color, Font, FontSize } from "../styles";
 import { Weather } from "../types";
+import Loading from "../components/Loading";
+import WeatherCurrent from "../components/WeatherCurrent";
+import WeatherPast from "../components/WeatherPast";
 
 type Props = ScreenProps<"WeatherDetails">;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    backgroundColor: Color.white,
     flex: 1,
   },
   title: {
     color: Color.navyBlue,
-    fontSize: FontSize.title2,
+    fontSize: FontSize.title1,
     fontFamily: Font.merriweather.bold,
-  },
-  text: {
-    fontSize: 20,
+    marginTop: 50,
+    marginBottom: 30,
+    marginHorizontal: 20,
   },
 });
 
@@ -46,13 +48,12 @@ export default function WeatherDetails({ route }: Props) {
   return (
     <SafeAreaView style={styles.container}>
       {loading ? (
-        <Text>carregando</Text>
+        <Loading />
       ) : (
-        <ScrollView>
-          <Text style={styles.title}>{product.name}</Text>
-          <Text style={styles.title}>{weather.current.temperature}</Text>
-          <Text style={styles.title}>{weather.current.humidity}</Text>
-          {/* <Text style={styles.title}>{weather?.current?.feelsLike || "gay"}</Text> */}
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+          <Text style={styles.title}>{product.region}</Text>
+          <WeatherCurrent weather={weather.current} />
+          <WeatherPast weather={weather} />
         </ScrollView>
       )}
     </SafeAreaView>
