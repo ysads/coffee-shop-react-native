@@ -2,17 +2,10 @@ import React, { useState } from "react";
 import Carousel from "react-native-snap-carousel";
 import CarouselItemLarge from "./CarouselItemLarge";
 import CarouselItemSmall from "./CarouselItemSmall";
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { Product } from "../types";
 import { Color, Font, FontSize } from "../styles";
 import { ScreenProps } from "./Router";
-import { initialWindowMetrics } from "react-native-safe-area-context";
 
 const { width: screenWidth } = Dimensions.get("window");
 
