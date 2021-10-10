@@ -23,7 +23,7 @@ export const fetchWeatherData = async ({
   units,
 }: ApiWeatherParams): Promise<Weather> => {
   return fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&exclude=minutely,hourly&appid=a63084d95f8b87d4922784d2399479ec`,
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&lang=pt_br&exclude=minutely,hourly&appid=a63084d95f8b87d4922784d2399479ec`,
   )
     .then((res) => res.json())
     .then((data) => parseWeather(data));
