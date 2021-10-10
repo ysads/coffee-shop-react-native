@@ -39,7 +39,7 @@ export default function ProductList({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <NavHeader />
         <Text>Você logou como {googleUser.name}</Text>
         <Text style={styles.title}>Produtos</Text>

@@ -71,7 +71,10 @@ export default function ProductDetails({ navigation, route }: Props) {
         }}
       />
       <View style={styles.sheet}>
-        <ScrollView style={styles.scrollable}>
+        <ScrollView
+          style={styles.scrollable}
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.title}>{product.name}</Text>
           <Text style={styles.price}>{formattedPrice}</Text>
           <Text style={styles.description}>{product.description}</Text>
