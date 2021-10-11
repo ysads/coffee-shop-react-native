@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
   currentWeather: WeatherData;
+  region: string;
 };
 
 const styles = StyleSheet.create({
@@ -38,9 +39,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function WeatherPast({ currentWeather }: Props) {
+export default function WeatherPast({ currentWeather, region }: Props) {
   const weatherHistory: WeatherData[] = useSelector((state: any) => {
-    return state.weather.history.filter(
+    return (state.weather.history[region] || []).filter(
       (w: WeatherData) => w.timestamp !== currentWeather.timestamp,
     );
   });

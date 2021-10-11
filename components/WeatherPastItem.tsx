@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Color, Font, FontSize } from "../styles";
 import { WeatherData } from "../types";
 import WeatherIcon from "./WeatherIcon";
@@ -16,54 +16,55 @@ const FORMAT_OPTIONS = {
   hour12: false,
 };
 
+const style = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 25,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  weekday: {
+    marginLeft: 20,
+    fontFamily: Font.sourceSans.bold,
+    fontSize: FontSize.body,
+    color: Color.pink,
+  },
+  date: {
+    marginLeft: 4,
+    fontFamily: Font.sourceSans.bold,
+    fontSize: FontSize.body,
+    color: Color.white,
+  },
+  temperature: {
+    fontFamily: Font.sourceSans.bold,
+    fontSize: FontSize.body,
+    color: Color.white,
+  },
+});
+
 export default function WeatherPastItem({ weather }: Props) {
   const date = new Date(weather.timestamp);
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 25,
-      }}
-    >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+    <View style={style.container}>
+      <View style={style.iconContainer}>
         <WeatherIcon
           color={Color.white}
           name={weather.conditionId}
           size="small"
         />
-        <Text
-          style={{
-            marginLeft: 20,
-            fontFamily: Font.sourceSans.bold,
-            fontSize: FontSize.body,
-            color: Color.pink,
-          }}
-        >
+        <Text style={style.weekday}>
           {date.toLocaleDateString(undefined, { weekday: "short" })}
         </Text>
-        <Text
-          style={{
-            marginLeft: 4,
-            fontFamily: Font.sourceSans.bold,
-            fontSize: FontSize.body,
-            color: Color.white,
-          }}
-        >
+        <Text style={style.date}>
           {date.toLocaleDateString(undefined, FORMAT_OPTIONS)}
         </Text>
       </View>
-      <Text
-        style={{
-          fontFamily: Font.sourceSans.bold,
-          fontSize: FontSize.body,
-          color: Color.white,
-        }}
-      >
-        {`${weather.temperature} ºC`}
-      </Text>
+      <Text style={style.temperature}>{`${weather.temperature} ºC`}</Text>
     </View>
   );
 }

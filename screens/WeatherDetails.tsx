@@ -9,7 +9,7 @@ import Loading from "../components/Loading";
 import WeatherCurrent from "../components/WeatherCurrent";
 import WeatherPast from "../components/WeatherPast";
 import { useDispatch, useSelector } from "react-redux";
-import { addWeatherData, resetWeatherData, setRegion } from "../actions";
+import { addWeatherData, addRegion } from "../actions";
 
 type Props = ScreenProps<"WeatherDetails">;
 
@@ -33,7 +33,6 @@ export default function WeatherDetails({ route }: Props) {
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState({} as Weather);
   const dispatch = useDispatch();
-  const currentRegion = useSelector((state: any) => state.weather.region);
 
   const fetchData = async () => {
     const response = await fetchWeatherData({
@@ -43,14 +42,11 @@ export default function WeatherDetails({ route }: Props) {
     });
     setWeather(response);
     setLoading(false);
-    dispatch(addWeatherData(response.current));
+    dispatch(addWeatherData(response.current, product.region));
   };
 
   useEffect(() => {
-    if (product.region !== currentRegion) {
-      dispatch(resetWeatherData());
-      dispatch(setRegion(product.region));
-    }
+    dispatch(addRegion(product.region));
     fetchData();
   }, []);
 
@@ -62,7 +58,10 @@ export default function WeatherDetails({ route }: Props) {
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           <Text style={styles.title}>{product.region}</Text>
           <WeatherCurrent weather={weather.current} />
-          <WeatherPast currentWeather={weather.current} />
+          <WeatherPast
+            currentWeather={weather.current}
+            region={product.region}
+          />
         </ScrollView>
       )}
     </SafeAreaView>

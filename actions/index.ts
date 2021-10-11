@@ -7,16 +7,15 @@ export const signin = (googleUser: GoogleUser) => {
   };
 };
 
-export const addWeatherData = (weather: WeatherData) => ({
+export const addWeatherData = (weather: WeatherData, region: string) => ({
   type: "ADD_WEATHER_DATA",
-  weather,
+  payload: {
+    weather,
+    region,
+  },
 });
 
-export const resetWeatherData = () => ({
-  type: "RESET_WEATHER_DATA",
-});
-
-export const setRegion = (region: string) => ({
-  type: "SET_REGION",
-  region,
+export const addRegion = (region: string) => ({
+  type: "ADD_REGION",
+  payload: region,
 });
