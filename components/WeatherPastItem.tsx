@@ -5,7 +5,6 @@ import { WeatherData } from "../types";
 import WeatherIcon from "./WeatherIcon";
 
 type Props = {
-  key: string | number;
   weather: WeatherData;
 };
 
@@ -17,7 +16,7 @@ const FORMAT_OPTIONS = {
   hour12: false,
 };
 
-export default function WeatherPastItem({ weather, key }: Props) {
+export default function WeatherPastItem({ weather }: Props) {
   const date = new Date(weather.timestamp);
 
   return (
@@ -25,12 +24,9 @@ export default function WeatherPastItem({ weather, key }: Props) {
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
-        // backgroundColor: Color.pink,
-        // padding: 10,
         alignItems: "center",
         marginBottom: 25,
       }}
-      key={key}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <WeatherIcon
