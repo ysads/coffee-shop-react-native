@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
   pink: {
     backgroundColor: Color.darkPink,
   },
+  pinkOutline: {
+    backgroundColor: Color.white,
+    borderColor: Color.darkPink,
+    borderWidth: 1,
+    borderStyle: "solid",
+  },
   large: {
     padding: 16,
   },
@@ -28,7 +34,7 @@ const styles = StyleSheet.create({
 interface Props {
   children: any;
   style: any;
-  variant: "green" | "pink";
+  variant: "green" | "pink" | "pinkOutline";
   size: "large" | "small";
   onPress: () => void;
 }
