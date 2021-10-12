@@ -1,12 +1,10 @@
 import React from "react";
 import AppLoading from "expo-app-loading";
 import Router from "./components/Router";
-import Loading from "./components/Loading";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
-import { persistor, store } from "./store";
-import { PersistGate } from "redux-persist/integration/react";
+import { store } from "./store";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -22,11 +20,9 @@ export default function App() {
     <AppLoading />
   ) : (
     <Provider store={store}>
-      <PersistGate persistor={persistor} loading={<Loading />}>
-        <NavigationContainer>
-          <Router />
-        </NavigationContainer>
-      </PersistGate>
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
     </Provider>
   );
 }
