@@ -8,14 +8,6 @@ type Props = {
   weather: WeatherData;
 };
 
-const FORMAT_OPTIONS = {
-  month: "short",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: false,
-};
-
 const style = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -47,7 +39,31 @@ const style = StyleSheet.create({
 });
 
 export default function WeatherPastItem({ weather }: Props) {
-  const date = new Date(weather.timestamp);
+  const date = new Date(weather.timestamp * 1000);
+
+  const daysOfTheWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const dayOfTheWeek = daysOfTheWeek[date.getDay()];
+  const months = [
+    "Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Set",
+    "Out",
+    "Nov",
+    "Dez",
+  ];
+  const month = months[date.getMonth()];
+  const day = ("0" + date.getDate()).substr(-2);
+  const hours = ("0" + date.getHours()).substr(-2);
+  const minutes = ("0" + date.getMinutes()).substr(-2);
+  const seconds = ("0" + date.getSeconds()).substr(-2);
+  const formattedDate =
+    day + " " + month + ", " + hours + ":" + minutes + ":" + seconds;
 
   return (
     <View style={style.container}>
@@ -57,12 +73,8 @@ export default function WeatherPastItem({ weather }: Props) {
           name={weather.conditionId}
           size="small"
         />
-        <Text style={style.weekday}>
-          {date.toLocaleDateString(undefined, { weekday: "short" })}
-        </Text>
-        <Text style={style.date}>
-          {date.toLocaleDateString(undefined, FORMAT_OPTIONS)}
-        </Text>
+        <Text style={style.weekday}>{dayOfTheWeek}</Text>
+        <Text style={style.date}>{formattedDate}</Text>
       </View>
       <Text style={style.temperature}>{`${weather.temperature} ºC`}</Text>
     </View>
