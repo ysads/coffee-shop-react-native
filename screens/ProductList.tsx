@@ -34,14 +34,18 @@ export default function ProductList({ navigation }: Props) {
   const googleUser = useSelector((state: any) => state.googleUser);
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {});
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
     setProducts(fetchProducts({ limit: 15 }));
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <NavHeader />
-        <Text>Você logou como {googleUser.name}</Text>
+        <NavHeader username={googleUser.name} picture={googleUser.picture} />
         <Text style={styles.title}>Produtos</Text>
         <View style={styles.sheet}>
           <ProductCarousel
