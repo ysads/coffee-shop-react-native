@@ -6,7 +6,7 @@ const googleUserReducer = (state = {} as GoogleUser, action: AnyAction) => {
     case "SIGNIN":
       return action.googleUser;
     default:
-      return {} as GoogleUser;
+      return state;
   }
 };
 
