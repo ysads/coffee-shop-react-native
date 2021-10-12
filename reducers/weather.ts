@@ -2,7 +2,18 @@ import { AnyAction } from "redux";
 
 const weatherReducer = (state = {} as any, action: AnyAction) => {
   switch (action.type) {
-    case "ADD_WEATHER_DATA":
+    case "LOAD_PREV_WEATHER_DATA": {
+      const { history, region } = action.payload;
+      return {
+        ...state,
+        history: {
+          ...state.history,
+          [region]: history,
+        },
+      };
+    }
+
+    case "ADD_WEATHER_DATA": {
       const { weather, region } = action.payload;
       return {
         ...state,
@@ -11,7 +22,9 @@ const weatherReducer = (state = {} as any, action: AnyAction) => {
           [region]: [...state.history[region], weather],
         },
       };
-    case "ADD_REGION":
+    }
+
+    case "ADD_REGION": {
       return action.payload in state.history
         ? state
         : {
@@ -21,6 +34,8 @@ const weatherReducer = (state = {} as any, action: AnyAction) => {
               [action.payload]: [],
             },
           };
+    }
+
     default:
       return { history: {} };
   }

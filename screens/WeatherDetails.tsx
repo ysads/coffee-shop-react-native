@@ -4,12 +4,14 @@ import { fetchWeatherData } from "../api";
 import { ScreenProps } from "../components/Router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Color, Font, FontSize } from "../styles";
-import { Weather } from "../types";
+import { Weather, WeatherData } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { addWeatherData, addRegion, loadPrevWeatherData } from "../actions";
 import Loading from "../components/Loading";
 import WeatherCurrent from "../components/WeatherCurrent";
 import WeatherPast from "../components/WeatherPast";
-import { useDispatch, useSelector } from "react-redux";
-import { addWeatherData, addRegion } from "../actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { upsert } from "../support/collections";
 
 type Props = ScreenProps<"WeatherDetails">;
 
@@ -32,18 +34,43 @@ export default function WeatherDetails({ route }: Props) {
   const { product } = route.params;
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState({} as Weather);
+  const dbKey = `weather_${product.region.replace(" ", "_").toLowerCase()}`;
+
+  const allWeatherHistory = useSelector((state: any) => {
+    return state.weather.history[product.region];
+  });
   const dispatch = useDispatch();
 
+  const persistData = async (value: WeatherData) => {
+    if (!value) return;
+    await AsyncStorage.setItem(dbKey, JSON.stringify(value));
+  };
+
+  const getPersistedData = async () => {
+    const value = await AsyncStorage.getItem(dbKey);
+    return value ? JSON.parse(value) : [];
+  };
+
   const fetchData = async () => {
+    await AsyncStorage.removeItem(dbKey);
+    const weatherHistory = await getPersistedData();
     const response = await fetchWeatherData({
       lat: product.lat,
       lon: product.lon,
       units: "metric",
     });
+
     setWeather(response);
-    setLoading(false);
+
+    dispatch(loadPrevWeatherData(weatherHistory, product.region));
     dispatch(addWeatherData(response.current, product.region));
+
+    setLoading(false);
   };
+
+  useEffect(() => {
+    persistData(allWeatherHistory);
+  }, [allWeatherHistory]);
 
   useEffect(() => {
     dispatch(addRegion(product.region));
