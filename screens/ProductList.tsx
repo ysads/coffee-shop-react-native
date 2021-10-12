@@ -34,11 +34,6 @@ export default function ProductList({ navigation }: Props) {
   const googleUser = useSelector((state: any) => state.googleUser);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {});
-    return unsubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
     setProducts(fetchProducts({ limit: 15 }));
   }, []);
 
