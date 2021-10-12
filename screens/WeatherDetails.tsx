@@ -11,7 +11,6 @@ import Loading from "../components/Loading";
 import WeatherCurrent from "../components/WeatherCurrent";
 import WeatherPast from "../components/WeatherPast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { upsert } from "../support/collections";
 
 type Props = ScreenProps<"WeatherDetails">;
 
@@ -52,7 +51,6 @@ export default function WeatherDetails({ route }: Props) {
   };
 
   const fetchData = async () => {
-    await AsyncStorage.removeItem(dbKey);
     const weatherHistory = await getPersistedData();
     const response = await fetchWeatherData({
       lat: product.lat,
