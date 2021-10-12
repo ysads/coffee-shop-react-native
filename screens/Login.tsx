@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
+import Loading from "../components/Loading";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Login({ navigation }: Props) {
+  const [loading, setLoading] = useState(false);
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "205094974478-79i7vksk0hra06b4dfmi7vqm482h2cc3.apps.googleusercontent.com",
@@ -57,11 +59,22 @@ export default function Login({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.sheet}>
-        <Button variant="pink" size="large" onPress={() => promptAsync()}>
-          <Text>Sign in with Google</Text>
-        </Button>
-      </View>
+      {loading ? (
+        <Loading />
+      ) : (
+        <View style={styles.sheet}>
+          <Button
+            variant="pink"
+            size="large"
+            onPress={async () => {
+              setLoading(true);
+              promptAsync();
+            }}
+          >
+            <Text>Sign in with Google</Text>
+          </Button>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
